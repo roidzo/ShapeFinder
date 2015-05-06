@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="QuadShapeFinder.WebService.IdentifyQuadrilateral, QuadShapeFinder.WebService" Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf" CodeBehind="IdentifyQuadrilateral.svc.cs" %>
