@@ -15,13 +15,7 @@ namespace QuadShapeFinder.Services
     {
         private readonly ILogger _logger;
         private readonly IQuadrilateralIdentifier _quadrilateralIdentifier;
-        
-        public QuadrilateralShapeService()
-        {
-
-        }
-
-
+     
         public QuadrilateralShapeService(ILogger logger, IQuadrilateralIdentifier quadrilateralIdentifier)
         {
             _logger = logger;
@@ -33,9 +27,10 @@ namespace QuadShapeFinder.Services
         {
             try
             {
-                var q = new Quadrilateral(sideA, sideB, sideC, sideD, angleAB, angleBC, angleCD, angleDA);
+                var quad = AutofacHostFactory.Container.Resolve<IQuadrilateral>();
+                quad.Load(sideA, sideB, sideC, sideD, angleAB, angleBC, angleCD, angleDA);
 
-                return _quadrilateralIdentifier.GetQuadrilateralType(q);
+                return _quadrilateralIdentifier.GetQuadrilateralType(quad);
             }
             catch (Exception ex)
             {

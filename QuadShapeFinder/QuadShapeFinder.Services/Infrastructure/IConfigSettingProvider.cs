@@ -8,7 +8,7 @@ namespace QuadShapeFinder.Services.Infrastructure
 {
     public interface IConfigSettingProvider
     {
-        string DefaultCulture { get; }
+        bool EnforceValidationQuadilateralIsClosedShape { get; }
         string LogFilePath { get; }
     }
 }

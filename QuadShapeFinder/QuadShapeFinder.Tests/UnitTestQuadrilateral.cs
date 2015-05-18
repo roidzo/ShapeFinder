@@ -5,6 +5,7 @@ using QuadShapeFinder.Services.BusinessLogic;
 using QuadShapeFinder.Services.BusinessLogic.Enums;
 using Moq;
 using QuadShapeFinder.Tests.Core;
+using QuadShapeFinder.Services.Infrastructure;
 
 namespace QuadShapeFinder.Tests
 {
@@ -14,13 +15,20 @@ namespace QuadShapeFinder.Tests
         private Mock<IQuadrilateral> _quadrilateral;
         private Mock<ILogger> _logger;
         private QuadrilateralBuilder _quadBuilder;
+        private IConfigSettingProvider _configSettingProvider;
+
 
         [TestInitialize]
         public void StartUp()
         {
             _quadrilateral = new Mock<IQuadrilateral>();
             _logger = new Mock<ILogger>();
-            _quadBuilder = new QuadrilateralBuilder();
+
+            var mockConfigSettingProvider = new Mock<IConfigSettingProvider>();
+            mockConfigSettingProvider.Setup(m => m.EnforceValidationQuadilateralIsClosedShape).Returns(true);
+            _configSettingProvider = mockConfigSettingProvider.Object;
+
+            _quadBuilder = new QuadrilateralBuilder(_configSettingProvider);
         }
 
 
@@ -35,7 +43,8 @@ namespace QuadShapeFinder.Tests
             //Act
             try
             {
-                IQuadrilateral quad = new Quadrilateral(2, 3, 2, 3, 40, 135, 45, 135);
+                IQuadrilateral quad = new Quadrilateral(_configSettingProvider);
+                quad.Load(2, 3, 2, 3, 40, 135, 45, 135);
             }
             catch (Exception ex)
             {
@@ -58,7 +67,8 @@ namespace QuadShapeFinder.Tests
             //Act
             try
             {
-                IQuadrilateral quad = new Quadrilateral(1, 2, 2, 2, 90, 90, 90, 90);
+                IQuadrilateral quad = new Quadrilateral(_configSettingProvider);
+                quad.Load(1, 2, 2, 2, 90, 90, 90, 90);
             }
             catch (Exception ex)
             {
@@ -81,7 +91,8 @@ namespace QuadShapeFinder.Tests
             //Act
             try
             {
-                IQuadrilateral quad = new Quadrilateral(0, 2, 2, 2, 90, 90, 90, 90);
+                IQuadrilateral quad = new Quadrilateral(_configSettingProvider);
+                quad.Load(0, 2, 2, 2, 90, 90, 90, 90);
             }
             catch (Exception ex)
             {
@@ -102,7 +113,8 @@ namespace QuadShapeFinder.Tests
             //Act
             try
             {
-                IQuadrilateral quad = new Quadrilateral(-2, 2, 2, 2, 90, 90, 90, 90);
+                IQuadrilateral quad = new Quadrilateral(_configSettingProvider);
+                quad.Load(-2, 2, 2, 2, 90, 90, 90, 90);
             }
             catch (Exception ex)
             {

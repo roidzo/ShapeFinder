@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using QuadShapeFinder.Services.IocModules;
+using Autofac.Integration.Wcf;
 
 namespace QuadShapeFinder.Services.Infrastructure
 {
@@ -16,6 +17,9 @@ namespace QuadShapeFinder.Services.Infrastructure
             builder.RegisterModule<MainModule>();
             builder.RegisterModule<ServiceModule>();
             var container = builder.Build();
+
+            AutofacHostFactory.Container = container;
+
             return container;
         }
     }

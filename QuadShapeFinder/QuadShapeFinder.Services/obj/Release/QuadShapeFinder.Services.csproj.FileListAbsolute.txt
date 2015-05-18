@@ -10,6 +10,6 @@ C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\Q
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Services\bin\Release\Serilog.xml
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Services\bin\Release\Serilog.FullNetFx.pdb
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Services\bin\Release\Serilog.FullNetFx.xml
-C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Services\obj\Release\QuadShapeFinder.Services.csprojResolveAssemblyReference.cache
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Services\obj\Release\QuadShapeFinder.Services.dll
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Services\obj\Release\QuadShapeFinder.Services.pdb
+C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Services\obj\Release\QuadShapeFinder.Services.csprojResolveAssemblyReference.cache

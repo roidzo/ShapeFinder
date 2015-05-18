@@ -8,6 +8,10 @@ using QuadShapeFinder.Tests.Core;
 using QuadShapeFinder.WebService;
 using QuadShapeFinder.Services.Helpers;
 using QuadShapeFinder.Services;
+using Autofac;
+using Autofac.Integration.Wcf;
+using QuadShapeFinder.WebService.IocModules;
+using QuadShapeFinder.Tests.Infrastructure;
 
 namespace QuadShapeFinder.Tests
 {
@@ -21,6 +25,8 @@ namespace QuadShapeFinder.Tests
         [TestInitialize]
         public void StartUp()
         {
+            AutofacHostFactory.Container = IoCTest.CreateContainer();
+
             _mockService = new Mock<IQuadrilateralShapeService>();
             _logger = new Mock<ILogger>();
             _webService = new IdentifyQuadrilateral(_logger.Object, _mockService.Object);

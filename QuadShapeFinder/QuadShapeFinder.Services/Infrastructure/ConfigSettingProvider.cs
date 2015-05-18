@@ -9,24 +9,25 @@ namespace QuadShapeFinder.Services.Infrastructure
 {
     public class ConfigSettingProvider : IConfigSettingProvider
     {
-        private const string DefaultCultureSetting = "DefaultCulture";
-        private readonly string _defaultCulture;
-
         private const string LogFilePathSetting = "LogFilePath";
         private readonly string _logFilePath;
 
+        private const string EnforceValidationQuadilateralIsClosedShapeSetting = "EnforceValidationQuadilateralIsClosedShape";
+        private readonly string _enforceValidationQuadilateralIsClosedShape;
+        
+
         public ConfigSettingProvider()
         {
-            _defaultCulture = ConfigurationManager.AppSettings[DefaultCultureSetting];
             _logFilePath = ConfigurationManager.AppSettings[LogFilePathSetting];
+            _enforceValidationQuadilateralIsClosedShape = ConfigurationManager.AppSettings[EnforceValidationQuadilateralIsClosedShapeSetting];
         }
 
-        public string DefaultCulture
+        public virtual bool EnforceValidationQuadilateralIsClosedShape
         {
-            get { return _defaultCulture; }
+            get { return _enforceValidationQuadilateralIsClosedShape == "true" ? true : false; }
         }
 
-        public string LogFilePath
+        public virtual string LogFilePath
         {
             get { return _logFilePath; }
         }

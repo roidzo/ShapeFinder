@@ -13,9 +13,7 @@ namespace QuadShapeFinder.Services.BusinessLogic
     public class QuadrilateralIdentifier : IQuadrilateralIdentifier
     {
         private readonly ILogger _logger;
-        private IQuadrilateral _quadrilateral;
-
-
+        
         public QuadrilateralIdentifier(ILogger logger)
         {
             _logger = logger;
@@ -24,14 +22,12 @@ namespace QuadShapeFinder.Services.BusinessLogic
 
         public virtual QuadTypeEnum GetQuadrilateralType(IQuadrilateral quadrilateral)
         {
-            _quadrilateral = quadrilateral;
-
-            int numberOfPairsOfCongruentAngles = NumberOfPairsOfCongruentAngles();
-            int numberOfPairsOfCongruentSides = NumberOfPairsOfCongruentSides();
-            int numberOfPairsOfCongruentOppositeSides = NumberOfPairsOfCongruentOppositeSides();
-            bool allSidesCongruent = AllSidesCongruent();
-            bool allAnglesCongruent = AllAnglesCongruent();
-            int numberOfParallelSides = NumberOfParallelSides();
+            int numberOfPairsOfCongruentAngles = NumberOfPairsOfCongruentAngles(quadrilateral);
+            int numberOfPairsOfCongruentSides = NumberOfPairsOfCongruentSides(quadrilateral);
+            int numberOfPairsOfCongruentOppositeSides = NumberOfPairsOfCongruentOppositeSides(quadrilateral);
+            bool allSidesCongruent = AllSidesCongruent(quadrilateral);
+            bool allAnglesCongruent = AllAnglesCongruent(quadrilateral);
+            int numberOfParallelSides = NumberOfParallelSides(quadrilateral);
 
             if (numberOfPairsOfCongruentSides == 0)
             {
@@ -82,10 +78,8 @@ namespace QuadShapeFinder.Services.BusinessLogic
                     return QuadTypeEnum.UnknownOrInvalid;
                 }
             }
-
             else
             {
-
                 if (numberOfParallelSides == 2)
                 {
                     if (numberOfPairsOfCongruentOppositeSides == 1)
@@ -106,16 +100,12 @@ namespace QuadShapeFinder.Services.BusinessLogic
         }
 
 
-
-        #region Helpers
-
-
-        private int NumberOfParallelSides()
+        private int NumberOfParallelSides(IQuadrilateral quadrilateral)
         {
-            if (_quadrilateral.Sides.Count != 4) throw new ArgumentOutOfRangeException("Number of sides do not equal 4");
+            if (quadrilateral.Sides.Count != 4) throw new ArgumentOutOfRangeException("Number of sides do not equal 4");
 
             int parallelSidesCount = 0;
-            int[] a = _quadrilateral.Angles.Select(i => i.Value).ToArray<int>();
+            int[] a = quadrilateral.Angles.Select(i => i.Value).ToArray<int>();
 
             for (int i = 0; i <= 3; i++)
             {
@@ -139,11 +129,11 @@ namespace QuadShapeFinder.Services.BusinessLogic
         }
 
 
-        private int NumberOfPairsOfCongruentAngles()
+        private int NumberOfPairsOfCongruentAngles(IQuadrilateral quadrilateral)
         {
             int pairsOfCongruentAnglesCount = 0;
 
-            var results = from a in _quadrilateral.Angles
+            var results = from a in quadrilateral.Angles
                           group a by a.Value into g
                           where g.Count() > 1
                           select g;
@@ -158,11 +148,11 @@ namespace QuadShapeFinder.Services.BusinessLogic
         }
 
 
-        private int NumberOfPairsOfCongruentSides()
+        private int NumberOfPairsOfCongruentSides(IQuadrilateral quadrilateral)
         {
             int pairsOfCongruentSidesCount = 0;
 
-            var results = from s in _quadrilateral.Sides
+            var results = from s in quadrilateral.Sides
                           group s by s.Value into g
                           where g.Count() > 1
                           select g;
@@ -177,12 +167,12 @@ namespace QuadShapeFinder.Services.BusinessLogic
         }
 
 
-        private int NumberOfPairsOfCongruentOppositeSides()
+        private int NumberOfPairsOfCongruentOppositeSides(IQuadrilateral quadrilateral)
         {
-            if (_quadrilateral.Sides.Count != 4) throw new ArgumentOutOfRangeException("Number of sides do not equal 4");
+            if (quadrilateral.Sides.Count != 4) throw new ArgumentOutOfRangeException("Number of sides do not equal 4");
 
             int pairsOfCongruentSidesCount = 0;
-            double[] a = _quadrilateral.Sides.Select(i => i.Value).ToArray<double>();
+            double[] a = quadrilateral.Sides.Select(i => i.Value).ToArray<double>();
 
             if (a[0] == a[2])
                 pairsOfCongruentSidesCount++;
@@ -194,19 +184,9 @@ namespace QuadShapeFinder.Services.BusinessLogic
         }
 
 
-        private bool AllAnglesCongruent()
+        private bool AllAnglesCongruent(IQuadrilateral quadrilateral)
         {
-            var results = from a in _quadrilateral.Angles
-                          group a by a.Value into g
-                          where g.Count() == 4
-                          select g;
-
-            return results.Count() == 1;
-        }
-
-        private bool AllSidesCongruent()
-        {
-            var results = from a in _quadrilateral.Sides
+            var results = from a in quadrilateral.Angles
                           group a by a.Value into g
                           where g.Count() == 4
                           select g;
@@ -215,8 +195,16 @@ namespace QuadShapeFinder.Services.BusinessLogic
         }
 
 
-        #endregion
+        private bool AllSidesCongruent(IQuadrilateral quadrilateral)
+        {
+            var results = from a in quadrilateral.Sides
+                          group a by a.Value into g
+                          where g.Count() == 4
+                          select g;
 
+            return results.Count() == 1;
+        }
 
+        
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using QuadShapeFinder.Services.BusinessLogic;
 using Autofac.Integration.Wcf;
-
+using QuadShapeFinder.Services.Infrastructure;
 
 namespace QuadShapeFinder.Services.IocModules
 {
@@ -18,14 +18,16 @@ namespace QuadShapeFinder.Services.IocModules
 
             builder.RegisterType(typeof(QuadrilateralIdentifier))
               .As(typeof(IQuadrilateralIdentifier))
-              //.SingleInstance()
               ;
 
             builder.RegisterType(typeof(QuadrilateralShapeService))
                .As(typeof(IQuadrilateralShapeService))
                ;
 
-            
+            builder.RegisterType(typeof(Quadrilateral))
+                .As(typeof(IQuadrilateral))
+               ;
+ 
         }
     }
 }

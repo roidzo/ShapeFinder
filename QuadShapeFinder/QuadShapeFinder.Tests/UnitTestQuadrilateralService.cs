@@ -4,23 +4,24 @@ using Serilog;
 using Moq;
 using QuadShapeFinder.Services.BusinessLogic;
 using QuadShapeFinder.Services.BusinessLogic.Enums;
-
 using QuadShapeFinder.Tests.Core;
 using QuadShapeFinder.WebService;
 using QuadShapeFinder.Services.Helpers;
 using QuadShapeFinder.Services;
+using Autofac;
+using Autofac.Integration.Wcf;
+using QuadShapeFinder.Services.Infrastructure;
 
 namespace QuadShapeFinder.Tests
 {
     [TestClass]
     public class UnitTestQuadrilateralService
     {
-        //private Mock<IIdentifyQuadrilateral> _mockWebService;
         private Mock<IQuadrilateralShapeService> _mockService;
         private Mock<ILogger> _mockLogger;
         private IIdentifyQuadrilateral _webService;
         private Mock<IQuadrilateralIdentifier> _mockQuadrilateralIdentifier;
-        private Mock<IQuadrilateral> _mockQuadrilateral;
+        private IConfigSettingProvider _configSettingProvider;
 
         [TestInitialize]
         public void StartUp()
@@ -28,9 +29,12 @@ namespace QuadShapeFinder.Tests
             _mockService = new Mock<IQuadrilateralShapeService>();
             _mockLogger = new Mock<ILogger>();
 
+            var mockConfigSettingProvider = new Mock<IConfigSettingProvider>();
+            mockConfigSettingProvider.Setup(m => m.EnforceValidationQuadilateralIsClosedShape).Returns(true);
+            _configSettingProvider = mockConfigSettingProvider.Object;
+
             _webService = new IdentifyQuadrilateral(_mockLogger.Object, _mockService.Object);
             _mockQuadrilateralIdentifier = new Mock<IQuadrilateralIdentifier>();
-            _mockQuadrilateral = new Mock<IQuadrilateral>();
         }
 
         [TestMethod]

@@ -53,6 +53,8 @@
       <HintPath>..\packages\Serilog.1.5.5\lib\net45\Serilog.FullNetFx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -68,6 +70,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\QuadrilateralBuilder.cs" />
+    <Compile Include="Infrastructure\IoCTest.cs" />
+    <Compile Include="IoCModules\MainModuleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestEndToEnd.cs" />
     <Compile Include="UnitTestQuadrilateralIdentifier.cs" />
@@ -76,7 +80,6 @@
     <Compile Include="UnitTestQuadrilateral.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +92,7 @@
       <Name>QuadShapeFinder.WebService</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

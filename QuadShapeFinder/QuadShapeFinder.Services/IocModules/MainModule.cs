@@ -8,6 +8,7 @@ using Serilog;
 using System.Configuration;
 using QuadShapeFinder.Services.Infrastructure;
 using Autofac.Integration.Wcf;
+using QuadShapeFinder.Services.BusinessLogic;
 
 namespace QuadShapeFinder.Services.IocModules
 {
@@ -26,6 +27,7 @@ namespace QuadShapeFinder.Services.IocModules
                 .WriteTo.File(logFilePath)
                 .CreateLogger()).
                 As<ILogger>().SingleInstance();
+
         }
     }
 }

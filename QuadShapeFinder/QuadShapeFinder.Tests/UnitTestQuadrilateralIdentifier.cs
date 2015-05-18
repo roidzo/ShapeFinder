@@ -5,6 +5,7 @@ using QuadShapeFinder.Services.BusinessLogic;
 using QuadShapeFinder.Services.BusinessLogic.Enums;
 using Moq;
 using QuadShapeFinder.Tests.Core;
+using QuadShapeFinder.Services.Infrastructure;
 
 namespace QuadShapeFinder.Tests
 {
@@ -15,39 +16,27 @@ namespace QuadShapeFinder.Tests
         private Mock<ILogger> _mockLogger;
         private QuadrilateralBuilder _quadBuilder;
         private IQuadrilateralIdentifier _quadIdentifier;
+        private IConfigSettingProvider _configSettingProvider;
 
         [TestInitialize]
         public void StartUp()
         {
             _mockQuadrilateral = new Mock<IQuadrilateral>();
             _mockLogger = new Mock<ILogger>();
-            _quadBuilder = new QuadrilateralBuilder();
+
+
+            var mockConfigSettingProvider = new Mock<IConfigSettingProvider>();
+            mockConfigSettingProvider.Setup(m => m.EnforceValidationQuadilateralIsClosedShape).Returns(true);
+            _configSettingProvider = mockConfigSettingProvider.Object;
+
+            _quadBuilder = new QuadrilateralBuilder(_configSettingProvider);
             _quadIdentifier = new QuadrilateralIdentifier(_mockLogger.Object);
         }
 
 
-        //#region Test QuadrilateralIdentifier
-        //[TestMethod]
-        //public void TestQuadrilateralIdentifierReturns()
-        //{
-        //    //Arrange
-        //    IQuadrilateral quad = new Quadrilateral(2, 3, 4, 2, 45, 135, 135, 45);
-
-        //    //Act
-        //    var quadIdentifier = new QuadrilateralIdentifier(quad);
-        //    var result = quadIdentifier.GetQuadrilateralType();
-
-        //    //Assert
-        //    Assert.AreEqual(result, QuadTypeEnum.IsoscelesTrapezoid);
-        //}
-
-        //#endregion
-
-        #region Test quadrilateral recognition
-
-      
+     
         [TestMethod]
-        public void TestQuadrilateralIdentifierValid_Sqaure()
+        public void TestQuadrilateralIdentifierValid_Square()
         {
             //Arrange
             var quad = _quadBuilder.Build(QuadTypeEnum.Square);
@@ -155,6 +144,6 @@ namespace QuadShapeFinder.Tests
             Assert.AreEqual(result, QuadTypeEnum.Kite);
         }
 
-        #endregion
+        
     }
 }

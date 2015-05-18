@@ -11,5 +11,6 @@ namespace QuadShapeFinder.Services.BusinessLogic
     {
         Dictionary<QuadSideNamesEnum, double> Sides { get; }
         Dictionary<QuadAngleNamesEnum, int> Angles { get; }
+        void Load(double sideA, double sideB, double sideC, double sideD, int angleAB, int angleBC, int angleCD, int angleDA);
     }
 }

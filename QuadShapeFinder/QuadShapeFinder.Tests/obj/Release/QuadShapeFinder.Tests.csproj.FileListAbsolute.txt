@@ -1,4 +1,3 @@
-C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Tests\bin\Release\QuadShapeFinder.Tests.dll.config
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Tests\bin\Release\QuadShapeFinder.Tests.dll
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Tests\bin\Release\QuadShapeFinder.Tests.pdb
 C:\Users\Dre\Documents\Visual Studio 2013\Projects\ShapeFinder\QuadShapeFinder\QuadShapeFinder.Tests\bin\Release\Autofac.dll
